@@ -1,10 +1,18 @@
 import { app, Menu, Tray } from 'electron';
 const { menubar } = require('menubar');
 const applescript = require('applescript');
+import { dirname, join, resolve } from 'path';
 
 const mb = menubar({
-  index: false,
+  browserWindow: {
+    height: 200,
+    width: 200,
+  },
+  icon: join(__dirname || resolve(dirname('')), '..', 'resources/menubar-icons/iconTemplate.png'),
+  index: `file://${join(__dirname, '../src/index.html')}`,
+  preloadWindow: true,
   showDockIcon: false,
+  windowPosition: 'trayLeft',
 });
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
