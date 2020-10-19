@@ -49,7 +49,7 @@ electron_1.app.on('window-all-closed', function () {
     }
 });
 function bootToWindows() {
-    applescript.execString('do shell script "bless -mount /Volumes/BOOTCAMP/ -legacy -setBoot -nextonly; shutdown -r now" with administrator privileges', function (err, rtn) {
+    applescript.execString("tell application \"System Preferences\"\n       activate\n       delay 2\n       reveal pane id \"com.apple.preference.startupdisk\"\n       delay 2\n       tell application \"System Events\" to tell process \"System Preferences\"\n         click button \"Click the lock to make changes.\" of window 1\n       end tell\n     end tell", function (err, rtn) {
         if (err) {
             console.log('err', err);
         }

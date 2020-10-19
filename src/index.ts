@@ -54,7 +54,15 @@ app.on('window-all-closed', () => {
 
 function bootToWindows() {
   applescript.execString(
-    'do shell script "bless -mount /Volumes/BOOTCAMP/ -legacy -setBoot -nextonly; shutdown -r now" with administrator privileges',
+    `tell application "System Preferences"
+       activate
+       delay 2
+       reveal pane id "com.apple.preference.startupdisk"
+       delay 2
+       tell application "System Events" to tell process "System Preferences"
+         click button "Click the lock to make changes." of window 1
+       end tell
+     end tell`,
     (err: any, rtn: any) => {
       if (err) {
         console.log('err', err);
