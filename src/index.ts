@@ -54,13 +54,17 @@ app.on('window-all-closed', () => {
 
 function bootToWindows() {
   applescript.execString(
-    `tell application "System Preferences"
+    `set thePW to "MY_PASSWORD"
+     tell application "System Preferences"
        activate
        delay 2
        reveal pane id "com.apple.preference.startupdisk"
        delay 2
        tell application "System Events" to tell process "System Preferences"
          click button "Click the lock to make changes." of window 1
+           delay 2
+           keystroke thePW
+           keystroke return
        end tell
      end tell`,
     (err: any, rtn: any) => {
